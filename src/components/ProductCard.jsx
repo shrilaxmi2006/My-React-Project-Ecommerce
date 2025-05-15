@@ -9,26 +9,26 @@ export default function ProductCard({ product }) {
     // Styles
     const cardStyle = {
         width: "250px",
-        backgroundColor: "#fff",
-        color: "#333",
-        borderRadius: "8px",
-        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+        backgroundColor: "#ffffff",
+        color: "#1e1e2f",
+        borderRadius: "10px",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
         overflow: "hidden",
-        margin: "15px",
-        fontFamily: "'Roboto', sans-serif",
+        margin: "10px auto",
+        fontFamily: "'Segoe UI', sans-serif",
         display: "flex",
         flexDirection: "column",
-        transition: "transform 0.3s ease",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
     };
 
     const clickableStyle = {
         cursor: "pointer",
-        padding: "15px",
+        padding: "16px",
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "100%"
+        flex: "1"
     };
 
     const imageStyle = {
@@ -36,59 +36,76 @@ export default function ProductCard({ product }) {
         height: "200px",
         objectFit: "cover",
         borderRadius: "8px",
-        transition: "transform 0.3s ease"
+        transition: "transform 0.4s ease"
     };
 
     const titleStyle = {
-        fontSize: "16px",
-        fontWeight: "bold",
-        margin: "10px 0",
-        color: "#333"
+        fontSize: "17px",
+        fontWeight: "600",
+        margin: "14px 0 6px",
+        color: "#1e1e2f"
     };
 
     const priceStyle = {
-        color: "#FF5722", // e-commerce standard price color
+        color: "#0077cc", // blue
         fontSize: "18px",
-        marginBottom: "8px",
+        fontWeight: "bold",
+        marginBottom: "6px",
     };
 
     const detailsText = {
-        color: "#888",
+        color: "#6b7280",
         fontSize: "14px",
-        marginTop: "8px",
-        fontWeight: "normal"
+        fontWeight: "normal",
+        marginTop: "6px"
     };
 
     const buttonStyle = {
-        backgroundColor: "#FF5722", // standard orange for action
-        color: "#fff",
+        backgroundColor: "#0077cc", // primary blue
+        color: "#ffffff",
         border: "none",
-        padding: "12px 0",
-        fontSize: "16px",
-        fontWeight: "bold",
+        padding: "12px",
+        fontSize: "15px",
+        fontWeight: "600",
         cursor: "pointer",
         width: "100%",
-        borderBottomLeftRadius: "8px",
-        borderBottomRightRadius: "8px",
+        borderBottomLeftRadius: "10px",
+        borderBottomRightRadius: "10px",
         transition: "background-color 0.3s ease",
     };
 
     const handleHover = (e, hover) => {
-        e.target.style.backgroundColor = hover ? "#e55e2a" : "#FF5722";
+        e.target.style.backgroundColor = hover ? "#4169e1" : "#0077cc"; // Royal Blue on hover
     };
 
     return (
         <div
             style={cardStyle}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.03)";
+                e.currentTarget.style.boxShadow = "0 6px 18px rgba(0, 0, 0, 0.15)";
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+                e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
+            }}
         >
             <div style={clickableStyle} onClick={goToDetails}>
-                <img src={product.image} alt={product.name} style={imageStyle} />
+                <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                        ...imageStyle,
+                        ...(product.imageHover
+                            ? { transform: "scale(1.05)" }
+                            : {})
+                    }}
+                />
                 <h3 style={titleStyle}>{product.name}</h3>
                 <p style={priceStyle}>₹{product.price.toFixed(2)}</p>
                 <p style={detailsText}>View Details</p>
             </div>
+
             <button
                 style={buttonStyle}
                 onMouseEnter={(e) => handleHover(e, true)}
